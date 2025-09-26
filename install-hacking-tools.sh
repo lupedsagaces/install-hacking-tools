@@ -92,6 +92,8 @@ install_go_program "github.com/lc/gau/v2/cmd/gau@latest" "gau"
 # Instalar uro
 echo -e "${AZUL}[*] Installing uro...${RESET}"
 pipx install uro
+pipx ensurepath
+source ~/.bashrc
 
 # Instalar Gxss
 echo -e "${AZUL}[*] Installing Gxss...${RESET}"
