@@ -64,6 +64,11 @@ install_go_program "github.com/projectdiscovery/naabu/v2/cmd/naabu@latest" "naab
 echo -e "${AZUL}[*] Installing anew...${RESET}"
 install_go_program "github.com/tomnomnom/anew@latest" "anew"
 
+# Instalar goop
+echo -e "${AZUL}[*] Installing goop...${RESET}"
+install_go_program "github.com/deletescape/goop@latest" "goop"
+
+
 # Verificar e instalar httpx
 echo -e "${AZUL}[*] Installing httpx...${RESET}"
 check_go_version "1.21"
