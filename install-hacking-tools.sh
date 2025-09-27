@@ -68,6 +68,9 @@ install_go_program "github.com/tomnomnom/anew@latest" "anew"
 echo -e "${AZUL}[*] Installing goop...${RESET}"
 install_go_program "github.com/deletescape/goop@latest" "goop"
 
+# Instalar subjs
+echo -e "${AZUL}[*] Installing subjs...${RESET}"
+install_go_program "github.com/lc/subjs" "subjs"
 
 # Verificar e instalar httpx
 echo -e "${AZUL}[*] Installing httpx...${RESET}"
@@ -87,6 +90,34 @@ install_go_program "github.com/tomnomnom/unfurl@latest" "unfurl"
 echo -e "${AZUL}[*] Installing nuclei...${RESET}"
 check_go_version "1.21"
 install_go_program "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest" "nuclei"
+
+# ============ MINHAS FERRAMENTAS ============
+# Instalar xsshunter
+echo -e "${AZUL}[*] Installing xsshunter...${RESET}"
+install_go_program "github.com/lupedsagaces/xsshunter" "xsshunter"
+
+# Instalar extracth1
+echo -e "${AZUL}[*] Installing extracth1...${RESET}"
+
+git clone https://github.com/lupedsagaces/extracth1.git
+
+cd extracth1
+
+sudo cp extracth1.py /usr/local/bin/
+
+sudo chmod +x /usr/local/bin/extracth1.py
+
+sudo mv /usr/local/bin/extracth1.py /usr/local/bin/extracth1
+
+# Instalar mergedomains
+echo -e "${AZUL}[*] Installing mergedomains...${RESET}"
+install_go_program "github.com/lupedsagaces/mergedomains" "mergedomains"
+
+
+# Instalar removehttp
+echo -e "${AZUL}[*] Installing removehttp...${RESET}"
+install_go_program "github.com/lupedsagaces/removehttp" "removehttp"
+
 
 # ============ FERRAMENTAS TESTE DE XSS ============
 
@@ -156,6 +187,24 @@ install_go_program "github.com/haccer/subjack@latest" "subjack"
 # Instalar amass
 echo -e "${AZUL}[*] Installing amass...${RESET}"
 install_go_program "github.com/OWASP/Amass/v3/...@latest" "amass"
+
+# ============ OUTRAS FERRAMENTAS ============
+
+#linkfinder
+
+echo -e "${AZUL}[*] Installing linkfinder...${RESET}"
+
+cd ~
+
+git clone https://github.com/GerbenJavado/LinkFinder.git 
+
+cd LinkFinder
+
+python3 setup.py install
+
+pip3 install -r requirements.txt
+
+
 
 # ============ CONFIGURAÇÕES ADICIONAIS ============
 
