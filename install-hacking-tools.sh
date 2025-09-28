@@ -54,6 +54,11 @@ echo -e "${AZUL}[*] Installing subfinder...${RESET}"
 check_go_version "1.21"
 install_go_program "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest" "subfinder"
 
+# instalar dnsx
+echo -e "${AZUL}[*] Installing dnsx...${RESET}"
+check_go_version "1.21"
+install_go_program "github.com/projectdiscovery/dnsx/cmd/dnsx@latest" "dnsx"
+
 # Instalar naabu
 echo -e "${AZUL}[*] Installing naabu...${RESET}"
 # para o naabu funcionar é preciso da lib libpcap-dev, por isso, ela é instalada no início do script
