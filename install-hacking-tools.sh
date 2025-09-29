@@ -3,6 +3,10 @@
 # Ativar modo de depuração
 set -x
 
+# Arquivo para erros
+LOG_ERROS="$HOME/install_errors.log"
+> "$LOG_ERROS"   # limpa o arquivo a cada execução
+
 # Cores para output
 VERDE="\e[38;5;82m"
 VERMELHO="\e[31m"
@@ -26,18 +30,17 @@ install_go_program() {
     package=$1
     program_name=$2
     echo -e "${AZUL}[*] Installing $program_name...${RESET}"
-    go install -v $package
-    if [ $? -eq 0 ]; then
+    if go install -v "$package" 2>>"$LOG_ERROS"; then
         echo -e "${VERDE}[+] $program_name installed successfully${RESET}"
     else
-        echo -e "${VERMELHO}[-] Failed to install $program_name${RESET}"
+        echo -e "${VERMELHO}[-] Failed to install $program_name (see $LOG_ERROS)${RESET}"
     fi
 }
 
 # Instalar dependências de sistema
 echo -e "${AZUL}[*] Installing system dependencies...${RESET}"
-sudo apt update
-sudo apt install -y libpcap-dev curl wget git build-essential pkg-config
+sudo apt update 2>>"$LOG_ERROS"
+sudo apt install -y libpcap-dev curl wget git build-essential pkg-config 2>>"$LOG_ERROS"
 
 # Verificar se Go está instalado
 if ! command -v go &> /dev/null; then
@@ -61,8 +64,7 @@ install_go_program "github.com/projectdiscovery/dnsx/cmd/dnsx@latest" "dnsx"
 
 # Instalar naabu
 echo -e "${AZUL}[*] Installing naabu...${RESET}"
-# para o naabu funcionar é preciso da lib libpcap-dev, por isso, ela é instalada no início do script
-sudo apt install -y build-essential pkg-config libpcap-dev
+sudo apt install -y build-essential pkg-config libpcap-dev 2>>"$LOG_ERROS"
 install_go_program "github.com/projectdiscovery/naabu/v2/cmd/naabu@latest" "naabu"
 
 # Instalar anew
@@ -85,7 +87,7 @@ install_go_program "github.com/projectdiscovery/httpx/cmd/httpx@latest" "httpx"
 # Verificar e instalar katana
 echo -e "${AZUL}[*] Installing katana...${RESET}"
 check_go_version "1.18"
-CGO_ENABLED=1 go install github.com/projectdiscovery/katana/cmd/katana@latest
+CGO_ENABLED=1 go install github.com/projectdiscovery/katana/cmd/katana@latest 2>>"$LOG_ERROS"
 
 # Instalar unfurl
 echo -e "${AZUL}[*] Installing unfurl...${RESET}"
@@ -103,21 +105,15 @@ install_go_program "github.com/lupedsagaces/xsshunter" "xsshunter"
 
 # Instalar extracth1
 echo -e "${AZUL}[*] Installing extracth1...${RESET}"
-
-git clone https://github.com/lupedsagaces/extracth1.git
-
+git clone https://github.com/lupedsagaces/extracth1.git 2>>"$LOG_ERROS"
 cd extracth1
-
-sudo cp extracth1.py /usr/local/bin/
-
-sudo chmod +x /usr/local/bin/extracth1.py
-
-sudo mv /usr/local/bin/extracth1.py /usr/local/bin/extracth1
+sudo cp extracth1.py /usr/local/bin/ 2>>"$LOG_ERROS"
+sudo chmod +x /usr/local/bin/extracth1.py 2>>"$LOG_ERROS"
+sudo mv /usr/local/bin/extracth1.py /usr/local/bin/extracth1 2>>"$LOG_ERROS"
 
 # Instalar mergedomains
 echo -e "${AZUL}[*] Installing mergedomains...${RESET}"
 install_go_program "github.com/lupedsagaces/mergedomains" "mergedomains"
-
 
 # Instalar removehttp
 echo -e "${AZUL}[*] Installing removehttp...${RESET}"
@@ -125,32 +121,30 @@ install_go_program "github.com/lupedsagaces/removehttp" "removehttp"
 
 # Instalar nmap
 echo -e "${AZUL}[*] Installing nmap...${RESET}"
-sydi apt update -y; sudo apt upgrade -y
-sudo apt install nmap -y
+sudo apt update -y 2>>"$LOG_ERROS"; sudo apt upgrade -y 2>>"$LOG_ERROS"
+sudo apt install nmap -y 2>>"$LOG_ERROS"
 
-# INstalar massdns
-
+# Instalar massdns
 echo -e "${AZUL}[*] Installing massdns...${RESET}"
-git clone https://github.com/blechschmidt/massdns.git ~/massdns
+git clone https://github.com/blechschmidt/massdns.git ~/massdns 2>>"$LOG_ERROS"
 cd ~/massdns
-sudo apt install build-essential -y
-make
-sudo cp ./bin/massdns /usr/bin
+sudo apt install build-essential -y 2>>"$LOG_ERROS"
+make 2>>"$LOG_ERROS"
+sudo cp ./bin/massdns /usr/bin 2>>"$LOG_ERROS"
 
 # Instalar shuffledns
 echo -e "${AZUL}[*] Installing shuffledns...${RESET}"
 install_go_program "github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest" "shuffledns"
 
 # ============ FERRAMENTAS TESTE DE XSS ============
-
 # Instalar gau
 echo -e "${AZUL}[*] Installing gau...${RESET}"
 install_go_program "github.com/lc/gau/v2/cmd/gau@latest" "gau"
 
 # Instalar uro
 echo -e "${AZUL}[*] Installing uro...${RESET}"
-pipx install uro
-pipx ensurepath
+pipx install uro 2>>"$LOG_ERROS"
+pipx ensurepath 2>>"$LOG_ERROS"
 source ~/.bashrc
 
 # Instalar Gxss
@@ -200,7 +194,7 @@ install_go_program "github.com/tomnomnom/gf@latest" "gf"
 
 # Instalar gf templates
 echo -e "${AZUL}[*] Installing gf templates...${RESET}"
-git clone https://github.com/lupedsagaces/.gf.git ~/.gf
+git clone https://github.com/lupedsagaces/.gf.git ~/.gf 2>>"$LOG_ERROS"
 
 # Instalar subjack
 echo -e "${AZUL}[*] Installing subjack...${RESET}"
@@ -211,25 +205,15 @@ echo -e "${AZUL}[*] Installing amass...${RESET}"
 install_go_program "github.com/OWASP/Amass/v3/...@latest" "amass"
 
 # ============ OUTRAS FERRAMENTAS ============
-
-#linkfinder
-
+# linkfinder
 echo -e "${AZUL}[*] Installing linkfinder...${RESET}"
-
 cd ~
-
-git clone https://github.com/GerbenJavado/LinkFinder.git 
-
+git clone https://github.com/GerbenJavado/LinkFinder.git 2>>"$LOG_ERROS"
 cd LinkFinder
-
-python3 setup.py install
-
-pip3 install -r requirements.txt
-
-
+python3 setup.py install 2>>"$LOG_ERROS"
+pip3 install -r requirements.txt 2>>"$LOG_ERROS"
 
 # ============ CONFIGURAÇÕES ADICIONAIS ============
-
 # Adicionar $GOPATH/bin ao PATH se não estiver
 echo -e "${AZUL}[*] Checking PATH configuration...${RESET}"
 GOPATH_BIN="$(go env GOPATH)/bin"
@@ -248,12 +232,12 @@ mkdir -p ~/recon
 # Baixar algumas wordlists úteis
 echo -e "${AZUL}[*] Downloading useful wordlists...${RESET}"
 cd ~/tools/wordlists
-wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/directory-list-2.3-medium.txt
-wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-110000.txt
+wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/directory-list-2.3-medium.txt 2>>"$LOG_ERROS"
+wget -q https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-110000.txt 2>>"$LOG_ERROS"
 
 # Instalar nuclei templates
 echo -e "${AZUL}[*] Installing nuclei templates...${RESET}"
-nuclei -update-templates
+nuclei -update-templates 2>>"$LOG_ERROS"
 
 # Desativar modo de depuração
 set +x
@@ -263,7 +247,6 @@ echo "=============================================="
 echo "    INSTALAÇÃO CONCLUÍDA COM SUCESSO!"
 echo "=============================================="
 echo -e "${RESET}"
-
 
 echo -e "${VERDE}[+] Diretórios criados:${RESET}"
 echo "- ~/tools/wordlists (wordlists baixadas)"
@@ -276,3 +259,10 @@ echo -e "${VERDE}[+] Ou reinicie seu terminal${RESET}"
 
 echo -e "${AZUL}[*] Teste uma ferramenta:${RESET}"
 echo "subfinder -d example.com"
+
+echo -e "${AZUL}[*] Verifique os erros (se houver) no arquivo:${RESET} $LOG_ERROS"
+if [ -s "$LOG_ERROS" ]; then
+    echo -e "${VERMELHO}[!] Algumas instalações falharam. Confira $LOG_ERROS${RESET}"
+else
+    echo -e "${VERDE}[+] Nenhum erro registrado!${RESET}"
+fi
