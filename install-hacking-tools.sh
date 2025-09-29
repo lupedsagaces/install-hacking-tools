@@ -123,6 +123,23 @@ install_go_program "github.com/lupedsagaces/mergedomains" "mergedomains"
 echo -e "${AZUL}[*] Installing removehttp...${RESET}"
 install_go_program "github.com/lupedsagaces/removehttp" "removehttp"
 
+# Instalar nmap
+echo -e "${AZUL}[*] Installing nmap...${RESET}"
+sydi apt update -y; sudo apt upgrade -y
+sudo apt install nmap -y
+
+# INstalar massdns
+
+echo -e "${AZUL}[*] Installing massdns...${RESET}"
+git clone https://github.com/blechschmidt/massdns.git ~/massdns
+cd ~/massdns
+sudo apt install build-essential -y
+make
+sudo cp ./bin/massdns /usr/bin
+
+# Instalar shuffledns
+echo -e "${AZUL}[*] Installing shuffledns...${RESET}"
+install_go_program "github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest" "shuffledns"
 
 # ============ FERRAMENTAS TESTE DE XSS ============
 
