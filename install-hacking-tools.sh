@@ -103,6 +103,11 @@ echo -e "${AZUL}[*] Installing nuclei...${RESET}"
 check_go_version "1.21"
 install_go_program "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest" "nuclei"
 
+# Instalar alterx
+echo -e "${AZUL}[*] Installing alterx...${RESET}"
+check_go_version "1.21"
+install_go_program "github.com/projectdiscovery/alterx/cmd/alterx@latest" "alterx"
+
 # ============ MINHAS FERRAMENTAS ============
 # Instalar xsshunter
 echo -e "${AZUL}[*] Installing xsshunter...${RESET}"
