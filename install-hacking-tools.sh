@@ -202,7 +202,7 @@ install_go_program "github.com/haccer/subjack@latest" "subjack"
 
 # Instalar amass
 echo -e "${AZUL}[*] Installing amass...${RESET}"
-install_go_program "github.com/OWASP/Amass/v3/...@latest" "amass"
+CGO_ENABLED=0 go install -v github.com/owasp-amass/amass/v5/cmd/amass@main
 
 # ============ OUTRAS FERRAMENTAS ============
 # linkfinder
