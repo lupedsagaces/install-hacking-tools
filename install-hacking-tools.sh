@@ -62,6 +62,11 @@ echo -e "${AZUL}[*] Installing dnsx...${RESET}"
 check_go_version "1.21"
 install_go_program "github.com/projectdiscovery/dnsx/cmd/dnsx@latest" "dnsx"
 
+# instalar aix
+echo -e "${AZUL}[*] Installing aix...${RESET}"
+check_go_version "1.21"
+install_go_program "github.com/projectdiscovery/aix/cmd/aix@latest" "aix"
+
 # Instalar naabu
 echo -e "${AZUL}[*] Installing naabu...${RESET}"
 sudo apt install -y build-essential pkg-config libpcap-dev 2>>"$LOG_ERROS"
