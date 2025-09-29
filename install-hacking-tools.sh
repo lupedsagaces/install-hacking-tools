@@ -77,7 +77,7 @@ install_go_program "github.com/deletescape/goop@latest" "goop"
 
 # Instalar subjs
 echo -e "${AZUL}[*] Installing subjs...${RESET}"
-install_go_program "github.com/lc/subjs" "subjs"
+install_go_program "github.com/lc/subjs@latest" "subjs"
 
 # Verificar e instalar httpx
 echo -e "${AZUL}[*] Installing httpx...${RESET}"
@@ -101,7 +101,7 @@ install_go_program "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest" "nu
 # ============ MINHAS FERRAMENTAS ============
 # Instalar xsshunter
 echo -e "${AZUL}[*] Installing xsshunter...${RESET}"
-install_go_program "github.com/lupedsagaces/xsshunter" "xsshunter"
+install_go_program "github.com/lupedsagaces/xsshunter@latest" "xsshunter"
 
 # Instalar extracth1
 echo -e "${AZUL}[*] Installing extracth1...${RESET}"
@@ -113,11 +113,11 @@ sudo mv /usr/local/bin/extracth1.py /usr/local/bin/extracth1 2>>"$LOG_ERROS"
 
 # Instalar mergedomains
 echo -e "${AZUL}[*] Installing mergedomains...${RESET}"
-install_go_program "github.com/lupedsagaces/mergedomains" "mergedomains"
+install_go_program "github.com/lupedsagaces/mergedomains@latest" "mergedomains"
 
 # Instalar removehttp
 echo -e "${AZUL}[*] Installing removehttp...${RESET}"
-install_go_program "github.com/lupedsagaces/removehttp" "removehttp"
+install_go_program "github.com/lupedsagaces/removehttp@latest" "removehttp"
 
 # Instalar nmap
 echo -e "${AZUL}[*] Installing nmap...${RESET}"
